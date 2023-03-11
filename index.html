@@ -6,38 +6,37 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>QuizApp</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap" rel="stylesheet">
     <script src="script.js" defer></script>
+    <script src="api.js" defer></script>
 </head>
 <body>
     <!-- Create a Quiz App with:
-        a diff, next button, result button,
-        a image to display, a question, and four answers to choose from.-->
-        <div class="container">
-            <div class="difficulty-container">
-                <button class="easy" data-easy>Easy</button>
-                <button class="medium" data-medium>Medium</button>
-                <button class="hard" data-hard>Hard</button>
+        a difficulty, next button, result button,
+        fetch data of a pokemon's image and index in the pokedex from an API,
+        using the data display a pokemon image, a question asking the user for this pokemon's index with four answers to choose from.-->
+        <div class="gameContainer">
+            <div class="gameInformation">
+                <p class="playerScore" data-score>0/10</p>
+                <p class="question" data-question>What is the pokedex number of this pokemon</p>
             </div>
-            <div class="player-score">
-                <p class="score" data-score>0/10</p>
+            <div class="imageContainer">
+                <img class="image" src="" data-image>
             </div>
-            <div class="question-container">
-                <p class="question" data-question>What is the name of this image?</p>
-            </div>
-            <div class="image-container">
-                <img class="image" data-image src="https://images.unsplash.com/photo-1505528167817-4c7c2d2e1b9e?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80" alt="image">
-            </div>
-            <div class="answer-container">
+            <div class="answerContainer">
                 <button class="answer" data-answer>Answer 1</button>
                 <button class="answer" data-answer>Answer 2</button>
                 <button class="answer" data-answer>Answer 3</button>
                 <button class="answer" data-answer>Answer 4</button>
             </div>
-            <div class="button-container">
+            <div class="buttonContainer">
+                <button id="easy" class="startGame" data-easy>Easy</button>
+                <button id="medium" class="startGame" data-medium>Medium</button>
+                <button id="hard" class="startGame" data-hard>Hard</button>
+                <button class="restart" data-restart>Restart</button>
                 <button class="next" data-next>Next</button>
-            </div>
-            <div class="result-container">
-                <p class="result" data-result>You got 0/10 correct!</p>
             </div>
         </div>
 </body>

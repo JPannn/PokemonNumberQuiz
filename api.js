@@ -1,13 +1,18 @@
 window.getPokeData = async function() {
     const pokemon = await getPokemon();
     const randomPokemon = shuffle(pokemon);
-    const pokemonChoices = fourPokemon(randomPokemon);
-    const [ firstPokemon ] = pokemonChoices;
-    const number = getPokeNumber(firstPokemon);
-    const image = getPokeImage(firstPokemon);
-    console.log(firstPokemon);
-    console.log(number);
-    console.log(image);
+    const pokemonChoices = fourPokemon(randomPokemon); //Array of 4 pokemon
+    const [ firstPokemon ] = pokemonChoices; //Returns first pokemon in array of four
+    const number = getPokeNumber(firstPokemon); //Using Regular Expressions, returns URL's number
+    const image = getPokeImage(number); //Returns image URL of pokemon using number from data retrieved from API
+
+    return {
+        pokemonChoices,
+        correct: {
+            image,
+            name: firstPokemon.name
+        }
+    };
 }
 
 async function getPokemon() {

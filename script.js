@@ -12,51 +12,86 @@
 // Medium: 15 questions
 // Hard: 20 questions
 
-const easyButton = document.querySelector('[data-easy]');
-const mediumButton = document.querySelector('[data-medium]');
-const hardButton = document.querySelector('[data-hard]');
-
-let userScore = document.querySelector('[data-score]');
-let question = document.querySelector('[data-question]');
+let gameData;
+let userScore = document.querySelector('[data-user-score]');
+userScore.dataset = 0;
+let question = document.querySelector('[data-current-question]');
+question.dataset = "";
 let pokemonImage = document.querySelector('[data-image]');
-
-const answerButtons = document.querySelectorAll('[data-answer]');
 const nextButton = document.querySelector('[data-next]');
 const restartButton = document.querySelector('[data-restart]');
 const main = document.querySelector('.gameContainer');
 
-let gameData;
-userScore = 0;
-question = "";
-
-easyButton.addEventListener('click', fetchData);
-
 async function fetchData() {
    gameData = await window.getPokeData();
+   showPokemonSilhouette();
+   displayChoices();
 }
-//Using Object Mapping, spread operator, and array methods to slice an array based on the difficulty button clicked.
 
-// [...document.getElementsByClassName('startGame')].forEach(function(buttons) {
-//    // Adds an event listener to each button
-//    buttons.addEventListener('click', function() {
-//       //this.id is the id of the button clicked 
-//       //difficultyButtons is an object that maps the id of the button to a function
-//       difficultyButtons[this.id]();
+function showPokemonSilhouette() {
+   pokemonImage.src = gameData.correct.image;
+}
 
-//    })
-// })
+function displayChoices() {
+   answerButtons.forEach((button, index) => {
+      button.innerText = gameData.pokemonChoices[index].name;
+      // Change buttons data-name atttribute to the name of the pokemon
+      button.dataset.name = gameData.pokemonChoices[index].name;
+   });
+}
 
-// const difficultyButtons = {
-//    easy: async function() {
-//       console.log('easy');
-//       //slice the array to get the first 10 pokemon
-//    },
-//    medium: async function() {
-//       console.log('medium');
-//       // slice the array to get the first 15 pokemon
-//    },
-//    hard: async function() {
-//       console.log('hard');
-//       // slice the array to get the first 20 pokemon
-//    }
-// }
+function gameSetup() {
+
+   gameDifficultyCheck();
+   playerChoices();
+   // playerResult();
+   // restartGame();
+
+   function gameDifficultyCheck(){
+      //Using Object Mapping, spread operator, array method
+      //Inside the forEach Loop Adds functionality/individuality to the difficulty buttons.
+      [...document.querySelectorAll('[data-start-game]')].forEach(function(dbuttons) {
+         // Adds an event listener to each button
+         dbuttons.addEventListener('click', function() {
+            //this.id is the id of the button clicked 
+            //difficultyButtons is an object that maps the id of the button to a function
+            fetchData();
+            difficultyButtons[this.id]();
+      
+         })
+      })
+      
+      const difficultyButtons = {
+         easy: function() {
+            console.log('easy');
+         },
+         medium: function() {
+            console.log('medium');
+         },
+         hard: function() {
+            console.log('hard');
+         }
+      }
+   }
+
+   function playerChoices(){
+      [...document.querySelectorAll('[data-pokemon-name]')].forEach(function(aButtons) {
+         aButtons.addEventListener('click', function() {
+            answerButtons[this.id]();
+      
+         })
+      })
+      
+      const answerButtons = {
+         easy: function() {
+            console.log('easy');
+         },
+         medium: function() {
+            console.log('medium');
+         },
+         hard: function() {
+            console.log('hard');
+         }
+      }
+   }
+}
